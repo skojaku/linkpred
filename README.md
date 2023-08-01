@@ -14,7 +14,7 @@ Make sure you have the following Python packages installed:
 ## Usage
 
 ```python
-from linkpred.node_samplers import ConfigModelNodeSampler, ErdosRenyiNodeSampler
+from linkpred.LinkPredictionDataset
 
 model = LinkPredictionDataset(testEdgeFraction=0.5, negative_edge_sampler="uniform")
 model.fit(net)
