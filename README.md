@@ -11,6 +11,12 @@ Make sure you have the following Python packages installed:
 - `scipy`
 - `tqdm`
 
+## Install 
+
+```bash
+pip install git+https://github.com/skojaku/linkpred.git
+```
+
 ## Usage
 
 ```python
