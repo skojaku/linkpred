@@ -91,6 +91,50 @@ Returns:
 - `train_edges_` (tuple of arrays): Tuple containing arrays of source and target nodes for train edges.
 - `test_edges_` (tuple of arrays): Tuple containing arrays of source and target nodes for test edges.
 
----
+--- 
+# Negative Edge Sampler
 
-Note: The code presented above assumes that you have the required packages installed and that you have implemented the necessary functions (e.g., `NegativeEdgeSampler`, `pairing`, `depairing`, etc.) outside of the provided code block.
+### Example
+
+```python
+from linkpred.LinkPredictionDataset import NegativeEdgeSampler
+
+sampler = NegativeEdgeSampler(negative_edge_sampler = "uniform")
+sampler.fit(net)
+src, trg = sampler.sampling(size = 100)
+```
+
+### Initializer
+
+```python
+NegativeEdgeSampler(negative_edge_sampler)
+```
+
+- `negative_edge_sampler` (str): Type of negative edge sampler. Can be "uniform" for conventional link prediction evaluation or "degreeBiased" for degree-biased sampling.
+
+### Methods
+
+#### `fit(net)`
+
+Fit the negative edge sampler to the given network.
+
+- `net` (numpy array or scipy sparse matrix): The input network for which the negative edge sampler will be fitted.
+
+#### `sampling(size=None, source_nodes=None)`
+
+Generate a dataset for link prediction by sampling positive and negative edges using the specified negative edge sampler.
+
+- `size` (int, optional): Number of edges to sample. Defaults to None.
+- `source_nodes` (list, optional): List of source nodes to condition negative edge sampling on. Required when `conditionedOnSource=True` in the initializer.
+
+Returns:
+- `pos_edges` (tuple): Tuple of node indices for positive edges.
+- `neg_edges` (tuple): Tuple of node indices for negative edges.
+
+## How the Negative Edge Sampler Works
+
+The negative edge sampler generates negative edges by repeatedly sampling node pairs until the desired number of negative edges is obtained. The sampling is performed based on either uniform or degree-biased sampling, depending on the chosen method.
+
+When `conditionedOnSource=True`, negative edge sampling is conditioned on a given list of source nodes. Otherwise, negative edges are sampled without conditioning.
+
+The sampling process ensures that the generated negative edges do not contain self-loops, positive edges, or duplicates. Additionally, it keeps track of the already sampled negative edges to avoid duplicates during sampling.
