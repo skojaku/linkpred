@@ -14,7 +14,7 @@ Make sure you have the following Python packages installed:
 ## Usage
 
 ```python
-from linkpred.LinkPredictionDataset
+from linkpred.LinkPredictionDataset import LinkPredictionDataset
 
 model = LinkPredictionDataset(testEdgeFraction=0.5, negative_edge_sampler="uniform")
 model.fit(net)
